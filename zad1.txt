@@ -1,0 +1,36 @@
+AEM Zadanie nr 1
+
+Opis problemu
+Rozważany problem to zmodyfikowany problem komiwojażera. 
+Dany jest zbiór wierzchołków i macierz symetrycznych odległości pomiędzy każdą parą wierzchołków. 
+Należy znaleźć najkrótszą ścieżkę zamkniętą przechodzącą przez dokładnie 50% wszystkich wierzchołków 
+(w przypadku nieparzystej liczby wierzchołków zaokrąglamy w górę). Wybór wierzchołków do ścieżki jest elementem rozwiązania. 
+Minimalizowane kryterium to długość zamkniętej ścieżki.
+
+Instancje
+Rozważamy instancje kroa100 i krob100 z biblioteki TSPLib. 
+Są to dwuwymiarowe instancje euklidesowe, tj. dla każdego wierzchołka podane są dwie współrzędne, 
+a odległość pomiędzy wierzchołkami jest odległością euklidesową. 
+Ważna uwaga, odległość jest zaokrąglana do liczby całkowitej stosując zaokrąglanie matematyczne. 
+Proszę jednak, aby dalszy kod wykorzystywał jedynie macierz odległości, 
+tj. aby był w pełni stosowalny do innych instancji, które będą zdefiniowane jedynie przez macierze odległości.
+
+Opis zadania
+Zadanie wykonujemy w grupach dwuosobowych. Każda grupa może wybrać dowolny język programowania.
+W ramach zadania należy:
+DONE - Zaimplementować wczytywanie instancji kroa100 i krob100 (w jednym z formatów w jakim są dostępne) i obliczanie macierzy odległości.
+DONE - Zaimplementować algorytm zachłanny (greedy) typu rozbudowy cyklu Greedy cycle dostosowany do rozważanego probelmu.
+- Zaimplementować algorytm typu regret heuristics (z żalem)na bazie powyższego algorytmu – stosujemy 1-regret (1-żal).
+- Opcjonalnie można zaimplementować jeszcze inną heurystykę konstrukcyjną.
+- Wykonać eksperymenty obliczeniowe. Na każdej instancji każdy algorytm należy uruchomić 10 razy.
+
+Sprawozdanie
+W sprawozdaniu należy umieścić:
+- Krótki opis zadania.
+- Opis obu zaimplementowanych algorytmów w pseudokodzie. 
+Uwaga pseudokod to nie jest jednozdaniowy, deklaratywny opis. Nie jest to także docelowy kod.
+- Wyniki eksperymentu obliczeniowego. Dla każdej kombinacji instancja/algorytm należy podać wartość średnią, minimalną i maksymalną. 
+Spodziewam się, że czasy wykonania tych algorytmów powinny być pomijalne, więc nie musimy ich raportować.
+- Wizualizacje najlepszych rozwiązań dla każdej kombinacji.
+- Wnioski.
+- Kod programu (np. w postaci linku).
