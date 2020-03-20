@@ -1,12 +1,10 @@
 import scipy.spatial as spt
 import numpy as np
-import pickle
 import math, statistics, random
 
-KROA = "kroA100.tsp"
-KROB = "kroB100.tsp"
+KROA = "instances/kroA100.tsp"
+KROB = "instances/kroB100.tsp"
 BATCH = 0.5
-# zmienic kryterium na cala sciezke!
 
 class Greedy():
     def __init__(self, distances, first):
@@ -46,17 +44,6 @@ class Greedy():
         # print(f"LAST: {self.current} :\t {self.path_length}")
 
         return self.path_length, self.path
-
-
-def serialize(item):
-    with open('serialized', 'wb') as fp:
-        pickle.dump(item, fp)
-
-
-def deserialize():
-    with open ('serialized', 'rb') as fp:
-        itemlist = pickle.load(fp)  
-    return itemlist
 
 
 def getInctances(path):

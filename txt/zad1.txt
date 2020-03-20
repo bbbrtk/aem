@@ -22,7 +22,7 @@ DONE - Zaimplementować wczytywanie instancji kroa100 i krob100 (w jednym z form
 DONE - Zaimplementować algorytm zachłanny (greedy) typu rozbudowy cyklu Greedy cycle dostosowany do rozważanego probelmu.
 DONE - Zaimplementować algorytm typu regret heuristics (z żalem)na bazie powyższego algorytmu – stosujemy 1-regret (1-żal).
 DONE - Opcjonalnie można zaimplementować jeszcze inną heurystykę konstrukcyjną.
-- Wykonać eksperymenty obliczeniowe. Na każdej instancji każdy algorytm należy uruchomić 10 razy.
+DONE - Wykonać eksperymenty obliczeniowe. Na każdej instancji każdy algorytm należy uruchomić 10 razy.
 
 Sprawozdanie
 W sprawozdaniu należy umieścić:
