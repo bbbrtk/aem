@@ -10,13 +10,14 @@ KROB = "kroB100.tsp"
 # zmienic kryterium na cala sciezke!
 
 class Greedy():
-    def __init__(self, distances, current):
+    def __init__(self, distances, first):
         self.distances = distances
-        self.first = current
-        self.current = current
+        self.first = first
+        self.current = first
         self.stop = 0
         self.path = []
         self.path_length = 0
+        self.nodes_first = {}
 
     def listToDict(self, lst):
         nodes = { i : lst[i] for i in range(0, len(lst) ) }
@@ -27,16 +28,22 @@ class Greedy():
     def findNextNode(self):
         self.path.append(self.current)
         nodes = self.listToDict(self.distances[self.current])
-        self.current = min(nodes.keys(), key=(lambda k: nodes[k]))
-        self.path_length += nodes[self.current]
+        # print(f"{self.current} :\t {self.path_length}")
+        
         self.stop -= 1
-        if self.stop > 0: self.findNextNode()
+        if self.stop > 0: 
+            self.current = min(nodes.keys(), key=(lambda k: self.distances[self.current][k] + self.distances[self.first][k]))
+            self.path_length += nodes[self.current]  
+            self.findNextNode()
 
     def start(self):
         self.stop = math.ceil(len(self.distances) / 2)
         self.findNextNode()
+        # close cycle (last to first node)
         self.path.append(self.first)
         self.path_length += self.distances[self.current][self.first]
+        # print(f"LAST: {self.current} :\t {self.path_length}")
+
         return self.path_length, self.path
 
 
@@ -75,16 +82,18 @@ def calculateDistances(coords):
 
 
 def main():
-    coords = getInctances(KROB)
+    coords = getInctances(KROA)
     distances = calculateDistances(coords)
     path_lengths = []
     paths = []
 
+    # check for starting in each node
     for i in range(len(distances)):
         greed = Greedy(distances, i)
         p_len, path = greed.start()
         path_lengths.append(p_len)
         paths.append(path)
+        print(f"{i} :\t {p_len}")
     
     min_path_length = min(path_lengths)
     min_path = paths[path_lengths.index(min_path_length)]

@@ -21,7 +21,7 @@ W ramach zadania należy:
 DONE - Zaimplementować wczytywanie instancji kroa100 i krob100 (w jednym z formatów w jakim są dostępne) i obliczanie macierzy odległości.
 DONE - Zaimplementować algorytm zachłanny (greedy) typu rozbudowy cyklu Greedy cycle dostosowany do rozważanego probelmu.
 - Zaimplementować algorytm typu regret heuristics (z żalem)na bazie powyższego algorytmu – stosujemy 1-regret (1-żal).
-- Opcjonalnie można zaimplementować jeszcze inną heurystykę konstrukcyjną.
+NOT - Opcjonalnie można zaimplementować jeszcze inną heurystykę konstrukcyjną.
 - Wykonać eksperymenty obliczeniowe. Na każdej instancji każdy algorytm należy uruchomić 10 razy.
 
 Sprawozdanie
