@@ -1,14 +1,14 @@
 import scipy.spatial as spt
 import numpy as np
 import pickle
-import math, statistics, random
+import random, math, statistics
 
 KROA = "kroA100.tsp"
 KROB = "kroB100.tsp"
 BATCH = 0.5
 # zmienic kryterium na cala sciezke!
 
-class Greedy():
+class Regret():
     def __init__(self, distances, first):
         self.distances = distances
         self.first = first
@@ -27,13 +27,27 @@ class Greedy():
     def findNextNode(self):
         self.path.append(self.current)
         nodes = self.listToDict(self.distances[self.current])
-        # print(f"{self.current} :\t {self.path_length}")
+        # print(f"{self.current}: path:\t {self.path_length}")
         
         self.stop -= 1
-        if self.stop > 0: 
-            self.current = min(nodes.keys(), key=(lambda k: self.distances[self.current][k] + self.distances[self.first][k]))
+        if self.stop > 0:
+            regrets = {}
+            for nkey in nodes.keys():
+                regret_values = []
+                regret = 0
+                for nkey2 in nodes.keys():
+                    regret_values.append(self.distances[nkey2][nkey] + self.distances[self.first][nkey]) # EUC(first, A) + EUC(B, A)
+
+                min_regret_value = min(regret_values)       
+                for each in regret_values:
+                    regret += abs(each-min_regret_value)
+                
+                regrets[nkey] = regret
+
+            self.current = max(nodes.keys(), key=(lambda k: regrets[k]))
             self.path_length += nodes[self.current]  
             self.findNextNode()
+
 
     def start(self):
         self.stop = math.ceil(len(self.distances) * BATCH)
@@ -90,16 +104,16 @@ def main():
 
     # check for starting in each node
     # for i in range(len(distances)):
-    #     greed = Greedy(distances, i)
-    #     p_len, path = greed.start()
+    #     reg = Regret(distances, i)
+    #     p_len, path = reg.start()
     #     path_lengths.append(p_len)
     #     paths.append(path)
     #     print(f"{i} :\t {p_len}")
 
     for i in range(10):
         r = random.randint(0,99)
-        greed = Greedy(distances, r)
-        p_len, path = greed.start()
+        reg = Regret(distances, r)
+        p_len, path = reg.start()
         path_lengths.append(p_len)
         paths.append(path)
         print(f"{r} :\t {p_len}")
