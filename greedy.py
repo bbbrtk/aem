@@ -1,6 +1,8 @@
 import scipy.spatial as spt
 import numpy as np
 import math, statistics, random
+import matplotlib.pyplot as plt 
+from operator import itemgetter
 
 KROA = "instances/kroA100.tsp"
 KROB = "instances/kroB100.tsp"
@@ -68,9 +70,29 @@ def calculateDistances(coords):
         distances.append(temp)
     return distances
 
+def show_on_plot(coords, path):
+    c0 = [row[0] for row in coords]
+    c1 = [row[1] for row in coords]
+    c_num = [i for i in range(len(coords))]
+    # print(coords[0][0])
+    # plt.scatter(c0, c1)
+
+    lines = itemgetter(*path)(coords)
+    lines0 = [row[0] for row in lines]
+    lines1 = [row[1] for row in lines]
+
+    fig, ax = plt.subplots()
+    # plt.plot(c0, c1, '.r')
+    plt.plot(lines0, lines1, '-r')
+
+    ax.scatter(c0, c1)
+
+    for i, txt in enumerate(c_num):
+        ax.annotate(txt, (c0[i], c1[i]))
+    plt.show()
 
 def main():
-    coords = getInctances(KROB)
+    coords = getInctances(KROA)
     distances = calculateDistances(coords)
     path_lengths = []
     paths = []
@@ -83,7 +105,7 @@ def main():
     #     paths.append(path)
     #     print(f"{i} :\t {p_len}")
 
-    for i in range(10):
+    for i in range(100):
         r = random.randint(0,99)
         greed = Greedy(distances, r)
         p_len, path = greed.start()
@@ -107,6 +129,7 @@ def main():
 
     print(avg_path_length)
 
+    show_on_plot(coords, min_path)
 
 if __name__ == "__main__":
     main()

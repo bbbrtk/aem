@@ -5,49 +5,14 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{hyperref}
-\usepackage[legalpaper, margin=0.8in]{geometry}
-
-\usepackage{color}
-\definecolor{deepblue}{rgb}{0,0,0.5}
-\definecolor{deepred}{rgb}{0.6,0,0}
-\definecolor{deepgreen}{rgb}{0,0.5,0}
+\usepackage[legalpaper, margin=1.2in]{geometry}
 
 \usepackage{listings}
-
-% Python style for highlighting
-\newcommand\pythonstyle{\lstset{
-language=Python,
-basicstyle=\ttm,
-otherkeywords={self},             % Add keywords here
-keywordstyle=\ttb\color{deepblue},
-emph={MyClass,__init__},          % Custom highlighting
-emphstyle=\ttb\color{deepred},    % Custom highlighting style
-stringstyle=\color{deepgreen},
-frame=tb,                         % Any extra options here
-showstringspaces=false,            % 
-basicstyle=\tiny
-}}
-
-
-% Python environment
-\lstnewenvironment{python}[1][]
-{
-\pythonstyle
-\lstset{#1}
-}
-{}
-
-% Python for external files
-\newcommand\pythonexternal[2][]{{
-\pythonstyle
-\lstinputlisting[#1]{#2}}}
-
-% Python for inline
-\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+\usepackage[]{algorithm2e}
 
 \title{AEM - Zadanie nr 1}
 \author{Bartosz Sobkowiak 125342 Joanna Świda}
-\date{20.03.2020}
+\date{22.03.2020}
 
 \usepackage{natbib}
 \usepackage{graphicx}
@@ -56,30 +21,80 @@ basicstyle=\tiny
 
 \maketitle
 \section{Opis zadania}
-\begin{enumerate}
-    \item \textbf{Jakie cechy ma to środowisko?} \\
-    Całkowicie obserwowalne, deterministyczne, epizodyczne, statyczne, dyskretne, jednoagentowe.
-    
-    \item \textbf{Jeden z agentów okazał się dużo lepszy. Dlaczego?} \\
-    Drugi agent przestaje przemieszczać się lewo-prawo, jeśli oba pola są czyste. Wykonuje więc mniej ruchów (dostaje mniej punktów ujemnych), a osiąga taki sam efekt jak pierwszy agent, który cały czas sprawdza.
-    
-    \item \textbf{Czy agenty ReflexVacuumAgent lub ModelBasedVacuumAgent są racjonalne? Uzasadnij.} \\ 
-    Agent pierwszy pomimo posiadania wiedzy dotyczącej stanu pól i tak się przemieszcza, więc nie maksymalizuje w ten sposób wartości miary jakości. Drugi agent stara się maksymalizować poprzez wykonywanie mniejszej liczby niepotrzebnych ruchów, lecz również nie jest racjonalny.
-    
-    \item \textbf{Czy dla tego środowiska istnieje racjonalny agent odruchowy? Uzasadnij.} \\
-    Jeśli środowisko jest calkowicie obserwowalne, to agent odruchowy może być racjonalny (wykład, slajd 32). To środowisko jest obserwowalne, więc taki agent istnieje.
-    
-    \item \textbf{Jakie ma ono cechy?} \\
-	Całkowicie obserwowalne, stochastyczne, epizodyczne, statyczne, dyskretne, jednoagentowe.
 
-\end{enumerate}
+    Rozważany problem to zmodyfikowana wersja problemu komiwojażera. Dany jest zbiór wierzchoł-
+    ków i macierz symetrycznych odległości między nimi. Celem jest znalezienie najkrótszej ścieżki zamkniętej przechodzącej przez dokładnie 50\% wszystkich wierzchołków (w przypadku nieparzystej liczby wierzchołków zaokrąglamy w górę). Wybór wierzchołków do ścieżki jest elementem rozwiązania. Minimalizowane kryterium to długość zamkniętej ścieżki.
+    
 
-\section{Algorytmy w pseudokodzie}
 
-\pythonexternal{pseudokod.py}
+\section{Pseudokod}
+
+\begin{algorithm}[H]
+     \KwData{zbiór wierchołków, macierz odległości pomiędzy wierzchołkami}
+     \KwResult{najrótsza ścieżka łącząca X\% wierzchołków}
+     
+    wybierz i dodaj punkt pierwszy\\
+    znajdź punkt leżący najbliżej pierwszego i dodaj go jako punkt drugi\\
+    \While{cykl zawiera mniej niż X\% wszystkich punktów}{
+        \For{każdy pozostały punkt p} {
+            oblicz długość cyklu cLen jeśli punkt p zostałby dodany do cyklu\\
+        }\EndFor
+        dodaj do cyklu punkt o najmniejszej wartośc cLen\\
+        usuń ten punkt z listy pozostałych punktów\\
+            }
+\caption{Greedy Cycle}
+\end{algorithm}
+
+\vspace{10mm}
+
+\begin{algorithm}[H]
+     \KwData{zbiór wierchołków, macierz odległości pomiędzy wierzchołkami}
+     \KwResult{najrótsza ścieżka łącząca X\% wierzchołków}
+     
+    wybierz i dodaj punkt pierwszy\\
+    znajdź punkt leżący najbliżej pierwszego i dodaj go jako punkt drugi\\
+    \While{cykl zawiera mniej niż X\% wszystkich punktów}{
+        \For{każdy pozostały punkt p} {
+            oblicz długość cyklu cLen jeśli punkt p zostałby dodany do cyklu\\
+            oblicz żal dla danego punktu\\
+        }\EndFor
+        dodaj do cyklu rozwiązanie z największym żalem\\
+        usuń punkt z listy pozostałych punktów\\
+            }
+\caption{Greedy Cycle with K-regret}
+\end{algorithm}
+
+
 
 \section{Wyniki obliczeń}
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+ Zbiór & Min & Max & Avg \\ 
+  \hline
+ kroA_{100} & 11284 & 16157 & 14313 \\ 
+  \hline
+ kroB_{100} & 10417 & 20202 & 14169 \\ 
+ \hline
+\end{tabular}
+\caption{Algorytm zachłanny - Greedy Cycle}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+ Zbiór & Min & Max & Avg \\ 
+  \hline
+ kroA_{100} & 11284 & 16157 & 14313 \\ 
+  \hline
+ kroB_{100} & 10417 & 20202 & 14169 \\ 
+ \hline
+\end{tabular}
+\caption{Algorytm z żalem - Greedy Cycle with K-regret}
+\end{table}
 
 \section{Wizualizacje}
 
@@ -89,8 +104,11 @@ basicstyle=\tiny
 
 \section{Wnioski}
 
+    Wyniki obliczeń jasno wskazują, że algorytm zachłanny radzi sobie znacznie lepiej przy przechodzeniu przez 50\% punktów generując ścieżkę o ok. połowę krótszą. Jednakże kiedy te same algorytmy uruchomi się dla wszystkich punktów, to wyniki są zupełnie inne - algorytm z żalem wyznacza krótsze ścieżki. Dzieje się tak przy uruchamianiu algorytmów dla 90-100\% punktów instancji. Spowodowane jest to tym, że algorytm z żalem wybiera początkowo "gorsze" wierzchołki (z większym żalem, często bardziej oddalone od siebie), co zaczyna przynosić profity dopiero w późniejszym etapie (do którego algorytm nie dochodzi gdyż kończy dodawanie na połowie punktów). Algorytm zachłanny nie ma takiego problemu, jego kontekst "przewidywania" jest węższy, więc przynosi tym lepsze wyniki (w porównaniu do algorytmu z żalem), im mniejsza jest liczba punktów z instancji, którą ma zawierać ścieżka.
+
 \section{Kod programu}
-\href{https://github.com/bbbrtk/aem}{github.com/bbbrtk/aem1}
+
+    Repozytorium z kodem algorytmów dostępne jest pod: \url{https://github.com/bbbrtk/aem}
 
 
 \end{document}

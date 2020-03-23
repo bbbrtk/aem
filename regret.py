@@ -1,6 +1,8 @@
 import scipy.spatial as spt
 import numpy as np
 import random, math, statistics
+import matplotlib.pyplot as plt 
+from operator import itemgetter
 
 KROA = "instances/kroA100.tsp"
 KROB = "instances/kroB100.tsp"
@@ -81,11 +83,25 @@ def calculateDistances(coords):
         for b in coords:
             temp.append( int(round(spt.distance.euclidean(a,b))) )
         distances.append(temp)
+
+
     return distances
 
+def show_on_plot(coords, path):
+    c0 = [row[0] for row in coords]
+    c1 = [row[1] for row in coords]
+    # print(coords[0][0])
+    # plt.scatter(c0, c1)
+    lines = itemgetter(*path)(coords)
+    lines0 = [row[0] for row in lines]
+    lines1 = [row[1] for row in lines]
+
+    plt.plot(c0, c1, '.r')
+    plt.plot(lines0, lines1, '-')
+    plt.show()
 
 def main():
-    coords = getInctances(KROB)
+    coords = getInctances(KROA)
     distances = calculateDistances(coords)
     path_lengths = []
     paths = []
@@ -98,7 +114,7 @@ def main():
     #     paths.append(path)
     #     print(f"{i} :\t {p_len}")
 
-    for i in range(10):
+    for i in range(50):
         r = random.randint(0,99)
         reg = Regret(distances, r)
         p_len, path = reg.start()
@@ -121,6 +137,10 @@ def main():
     print(max_path)
 
     print(avg_path_length)
+
+    show_on_plot(coords, max_path)
+
+
 
 
 if __name__ == "__main__":
