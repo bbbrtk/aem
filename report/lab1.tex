@@ -11,7 +11,7 @@
 \usepackage[]{algorithm2e}
 
 \title{AEM - Zadanie nr 1}
-\author{Bartosz Sobkowiak 125342 Joanna Świda}
+\author{Bartosz Sobkowiak 125342 Joanna Świda 138675}
 \date{22.03.2020}
 
 \usepackage{natbib}
@@ -66,7 +66,7 @@
 
 
 
-\section{Wyniki obliczeń}
+\section{Wyniki obliczeń i wizualizacje}
 
 \begin{table}[h!]
 \centering
@@ -74,9 +74,9 @@
  \hline
  Zbiór & Min & Max & Avg \\ 
   \hline
- kroA_{100} & 11284 & 16157 & 14313 \\ 
+ kroA$_{100}$ & 11284 & 16157 & 14313 \\ 
   \hline
- kroB_{100} & 10417 & 20202 & 14169 \\ 
+ kroB$_{100}$ & 10417 & 20202 & 14169 \\ 
  \hline
 \end{tabular}
 \caption{Algorytm zachłanny - Greedy Cycle}
@@ -88,19 +88,40 @@
  \hline
  Zbiór & Min & Max & Avg \\ 
   \hline
- kroA_{100} & 11284 & 16157 & 14313 \\ 
+ kroA$_{100}$ & 18679 & 24313 & 21710 \\ 
   \hline
- kroB_{100} & 10417 & 20202 & 14169 \\ 
+ kroB$_{100}$ & 19830 & 23675 & 21118 \\ 
  \hline
 \end{tabular}
 \caption{Algorytm z żalem - Greedy Cycle with K-regret}
 \end{table}
 
-\section{Wizualizacje}
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}[b]{0.8\textwidth}
+    \includegraphics[width=\textwidth]{kroa_greedypng.png}
+    \caption{Algorytm zachłanny - KROA100}
+  \end{minipage}
 
-% \begin{center}
-%     \includegraphics[width=0.5\textwidth]{chart.png}
-% \end{center}
+  \begin{minipage}[b]{0.8\textwidth}
+    \includegraphics[width=\textwidth]{kroa_min_regret_18679.png}
+    \caption{Algorytm z żalem - KROA100}
+  \end{minipage}
+  
+\end{figure}
+    
+  \begin{figure}[h!]
+    \centering
+      \begin{minipage}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{krob_greedy.png}
+        \caption{Algorytm zachłanny - KROB100}
+      \end{minipage}
+    
+      \begin{minipage}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{krob_min_regret_19830.png}
+        \caption{Algorytm z żalem - KROB100}
+      \end{minipage}  
+\end{figure}
 
 \section{Wnioski}
 

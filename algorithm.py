@@ -7,7 +7,7 @@ from tsplib95 import Problem, load_problem
 from tsplib95.distances import euclidean
 from collections import OrderedDict
 from operator import itemgetter
-
+from copy import deepcopy
 
 KROA = "instances/kroA100.tsp"
 KROB = "instances/kroB100.tsp"
@@ -52,31 +52,34 @@ class Greedy():
         self.path.append(self.current)
         nodes = self.list_to_dict(self.distances[self.current])
         # print(f"{self.current}: path:\t {self.path_length}")
-
-        # print(self.current)
-
+        
         self.stop -= 1
         if self.stop > 0:
             regrets = {}
             for nkey in nodes.keys():
                 regret_values = []
                 regret = 0
+
+                # jaki bedzie koszt dla wstawienia elementu nkey pozniej
                 for nkey2 in nodes.keys():
-                    regret_values.append( 
-                        self.distances[nkey2][nkey] + \
-                        self.distances[self.first][nkey] + \
-                        self.distances[self.first][nkey2]    
-                        ) 
+                    regret_values.append(
+                        self.distances[nkey][self.first] + \
+                        self.distances[nkey][nkey2] + \
+                        self.distances[nkey2][self.first]
+                            ) # EUC(first, A) + EUC(B, A)
 
-                min_regret_value = min(regret_values)  
-                # min_regret_value = regret_values[nkey]
 
+                min_regret_value = min(regret_values)       
                 for each in regret_values:
-                    regret += abs(each-min_regret_value)
+                    regret += each - min_regret_value
                 
+                # print(regrets)
                 regrets[nkey] = regret
 
+            # print(regrets)
             self.current = max(nodes.keys(), key=(lambda k: regrets[k]))
+            # print(self.current)
+
             self.path_length += nodes[self.current]  
             self.find_next_node_wtih_regret()
 
@@ -84,19 +87,14 @@ class Greedy():
     def start(self):
         self.stop = math.ceil(len(self.distances) * PART_OF_POPULATION)
 
-        if self.regret:
-            self.find_next_node_wtih_regret()
-            # close cycle (last to first node)
-            self.path.append(self.first)
-            self.path_length += self.distances[self.current][self.first]
+        if self.regret: self.find_next_node_wtih_regret()
+        else:           self.find_next_node()
 
-        else:
-            self.find_next_node()
-            # close cycle (last to first node)
-            self.path.append(self.first)
-            self.path_length += self.distances[self.current][self.first]
+        # close cycle (last to first node)
+        self.path.append(self.first)
+        self.path_length += self.distances[self.current][self.first]
 
-            # print(f"LAST: {self.current} :\t {self.path_length}")
+        # print(f"LAST: {self.current} :\t {self.path_length}")
 
         return self.path_length, self.path
 
@@ -202,12 +200,9 @@ def main():
         # coords, distances = load_instances(KROA)
         coords, distances = load_instance_tsplib(instance)
 
-        min_path = run_multiple_times(distances, 100, True, False)
-        show_on_plot(coords, min_path)
-
-        # for regret in [False, True]:
-        #     min_path = run_multiple_times(distances, 10, regret, False)
-        #     show_on_plot(coords, min_path)
+        for regret in [False, True]:
+            min_path = run_multiple_times(distances, 100, regret, True)
+            show_on_plot(coords, min_path)
 
 
 if __name__ == "__main__":
