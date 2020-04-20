@@ -1,0 +1,36 @@
+                             cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroA100  True     True      14265  17731  22737
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroA100  True     True      0.1613  0.3202  0.4985
+ --- --- --- --- --- --- ---
+                             cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroB100  True     True      13968  17413  22414
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroB100  True     True      0.1839  0.3249  0.5958
+ --- --- --- --- --- --- ---
+                             cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroA100  False    True      11657  12744  14762
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroA100  False    True      0.0924  0.1441  0.2291
+ --- --- --- --- --- --- ---
+                             cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroB100  False    True      11522  12705  14318
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroB100  False    True      0.0753  0.1329  0.1827
+ --- --- --- --- --- --- ---

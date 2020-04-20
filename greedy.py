@@ -131,7 +131,7 @@ def load_instances(path):
     return final_coords, dimension_matrix
 
 
-def show_on_plot(coords, path):
+def show_on_plot(coords, path, label="", save=False, savename="plot"):
     c0 = [row[0] for row in coords]
     c1 = [row[1] for row in coords]
     c_num = [i for i in range(len(coords))]
@@ -147,6 +147,8 @@ def show_on_plot(coords, path):
 
     for i, txt in enumerate(c_num):
         ax.annotate(txt, (c0[i], c1[i]))
+    plt.title(label)
+    if save: plt.savefig(savename)
     plt.show()
 
 
