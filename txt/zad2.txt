@@ -1,3 +1,6 @@
+Greedy
+
+
                              cost              
                               min   mean    max
 instance isVertex isGreedy                     
@@ -33,4 +36,44 @@ kroB100  False    True      11522  12705  14318
                                min    mean     max
 instance isVertex isGreedy                        
 kroB100  False    True      0.0753  0.1329  0.1827
+ --- --- --- --- --- --- ---
+
+
+ Steep
+
+                              cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroA100  True     False     11845  17736  22527
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroA100  True     False     0.2281  0.3567  0.7047
+ --- --- --- --- --- --- ---
+                             cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroB100  True     False     15084  17793  21609
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroB100  True     False     0.2504  0.3887  0.6944
+ --- --- --- --- --- --- ---
+                             cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroA100  False    False     11147  12676  15291
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroA100  False    False     0.1987  0.3554  1.3037
+ --- --- --- --- --- --- ---
+                             cost              
+                              min   mean    max
+instance isVertex isGreedy                     
+kroB100  False    False     11322  12372  13434
+                              time                
+                               min    mean     max
+instance isVertex isGreedy                        
+kroB100  False    False     0.1697  0.3078  1.1066
  --- --- --- --- --- --- ---

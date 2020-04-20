@@ -19,22 +19,9 @@ class LocalSearch():
         self.best_solution = []
         self.best_cost = 0
         self.solutions = []
+        
         self.path = []
         self.path_length = 0
-
-    def run(self, run_times=100):
-        self.solutions = list()
-        for i in range(run_times):
-            if self.greedy:
-                self.solutions.append(self._greedy(i))
-            else:
-                self.solutions.append(self._steepest(i))
-        s, c, _ = min(self.solutions, key=lambda x: x[1])
-        self.best_solution = s
-        self.best_cost = c
-
-    def _solution_cost(self, solution):
-        return sum([self.distances[id_source, id_destination] for id_source, id_destination in zip(solution, solution[1:])])
 
     def _init_params(self, iter):
         t1 = time.time()
@@ -110,8 +97,7 @@ class LocalSearch():
                 if diff < 0:
                     better_in = True
                     if self.vertex:
-                        current[swap_a_id], current[swap_b_id] = current[swap_b_id], current[
-                            swap_a_id]
+                        current[swap_a_id], current[swap_b_id] = current[swap_b_id], current[swap_a_id]
                     else:
                         current = current[:swap_a_id + 1] + current[swap_a_id + 1:swap_b_id + 1][::-1] + \
                                     current[swap_b_id + 1:]
@@ -144,7 +130,7 @@ class LocalSearch():
                     better_out = True
                     # break
 
-            if not better_out:
+            if better_out is False:
                 current = copy.deepcopy(solution)
 
             # 2 - swap
@@ -161,17 +147,18 @@ class LocalSearch():
                     diff = utils.get_value_of_swap_edges(self.distances, current, swap_a_id, swap_b_id)
 
                 if diff < best:
-                    better_in = True
-                    best = diff
                     bswap = (swap_a_id, swap_b_id)
+                    best = diff
+                    better_in = True
+                    
 
-                if better_in:
-                    if self.vertex:
-                        current[bswap[0]], current[bswap[1]] = current[bswap[1]], current[bswap[0]]
+            if better_in:
+                if self.vertex:
+                    current[bswap[0]], current[bswap[1]] = current[bswap[1]], current[bswap[0]]
 
-                    else:
-                        current = current[:bswap[0] + 1] + current[bswap[0] + 1:bswap[1] + 1][::-1] + \
-                                    current[bswap[1] + 1:]
+                else:
+                    current = current[:bswap[0] + 1] + current[bswap[0] + 1:bswap[1] + 1][::-1] + \
+                                current[bswap[1] + 1:]
             
             # final
             if better_in or better_out:
@@ -183,12 +170,26 @@ class LocalSearch():
 
         return solution, cost, final_time
 
+    def run(self, run_times=100):
+        self.solutions = list()
+        for i in range(run_times):
+            if self.greedy:
+                self.solutions.append(self._greedy(i))
+            else:
+                self.solutions.append(self._steepest(i))
+        s, c, _ = min(self.solutions, key=lambda x: x[1])
+        self.best_solution = s
+        self.best_cost = c
+
+    def _solution_cost(self, solution):
+        return sum([self.distances[id_source, id_destination] for id_source, id_destination in zip(solution, solution[1:])])
+
 
 def main():
     
     for isVertex in [True, False]:
         # for isGreedy in [True, False]:
-        isGreedy = True
+        isGreedy = False
         
         for instance in [KROA, KROB]:
             instance_file = f"instances/{instance}.tsp"
