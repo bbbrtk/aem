@@ -7,8 +7,8 @@ import random
 import numpy as np
 import pandas as pd 
 
-KROA = "kroA100"
-KROB = "kroB100"
+KROA = "kroA200"
+KROB = "kroB200"
 
 class LocalSearch():
     def __init__(self, distances, greedy=True, vertex=True):

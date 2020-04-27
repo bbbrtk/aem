@@ -140,7 +140,7 @@ class LocalSearchCandidatesMoves():
 
 
 def main():
-    
+    print(" --- --- start --- ---")
     for instance in [KROA, KROB]:
         instance_file = f"instances/{instance}.tsp"
         coords, distances = greedy.load_instance_tsplib(instance_file)
@@ -167,7 +167,7 @@ def main():
         print(df_cost)
         df_time = df.groupby(['instance']).agg({'time' : ['min','mean', 'max']}).round(4)
         print(df_time)
-        print(" --- --- --- --- --- --- ---")
+        print(" --- --- --- --- ---")
 
 
 
