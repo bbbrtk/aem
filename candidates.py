@@ -23,7 +23,7 @@ class LocalSearchCandidatesMoves():
 
     def _init_params(self, iter):
         t1 = time.time()
-        solution = random.sample(list(range(100)), 50)
+        solution = random.sample(list(range(len(self.distances))), int(len(self.distances))/2)
         better_out = True
         better_in = True
         return solution, t1, better_out, better_in
@@ -76,7 +76,7 @@ class LocalSearchCandidatesMoves():
             # 1 - change
             better_out = False
             best = 0
-            for remove_id, insert_id in product(range(50), repeat=2):
+            for remove_id, insert_id in product(range(int(len(self.distances))/2), repeat=2):
                 diff = utils.get_value_of_change_vertices(self.distances, solution, complementary_solution, remove_id, insert_id)
                 if diff < best:
                     current = copy.deepcopy(solution)
