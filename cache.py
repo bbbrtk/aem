@@ -119,7 +119,6 @@ class LocalSearchCache():
     def run(self, run_times=100):
         self.solutions = []
         for i in range(run_times):
-            print(i)
             self.solutions.append(self._steepest(i))
         s, c, _ = min(self.solutions, key=lambda x: x[1])
         self.best_solution = s

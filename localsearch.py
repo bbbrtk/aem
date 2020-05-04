@@ -13,6 +13,7 @@ KROB = "kroB200"
 class LocalSearch():
     def __init__(self, distances, greedy=True, vertex=True):
         self.distances = distances
+        self.dist_len = len(distances)
         self.greedy = greedy # or steepest
         self.vertex = vertex # or edge
 
@@ -29,15 +30,15 @@ class LocalSearch():
         # np.random.seed(iter)
         # random.seed(iter)
         # random solution
-        solution = random.sample(list(range(100)), 50)
+        solution = random.sample(list(range(self.dist_len)), int(self.dist_len/2))
         better_out = True
         better_in = True
         return solution, t1, better_out, better_in
 
     def _out(self, current, solution, best_value=0):
         better_out = False
-        complementary_solution = list(set(range(100)) - set(solution))
-        for remove_id, insert_id in product(range(50), repeat=2):
+        complementary_solution = list(set(range(self.dist_len)) - set(solution))
+        for remove_id, insert_id in product(range( int(self.dist_len/2)), repeat=2):
             diff = utils.get_value_of_change_vertices(solution, complementary_solution, remove_id, insert_id)
             if diff < best_value:
                 current = copy.deepcopy(solution)
@@ -49,7 +50,7 @@ class LocalSearch():
 
     def _in(self, current, solution, best_value=0):
         better_in = False
-        for swap_a_id, swap_b_id in product(range(50), repeat=2):
+        for swap_a_id, swap_b_id in product(range( int(self.dist_len/2)), repeat=2):
             if swap_b_id <= swap_a_id:
                 continue
 
@@ -75,8 +76,8 @@ class LocalSearch():
 
             #out
             better_out = False
-            complementary_solution = list(set(range(100)) - set(solution))
-            for remove_id, insert_id in product(range(50), repeat=2):
+            complementary_solution = list(set(range(self.dist_len)) - set(solution))
+            for remove_id, insert_id in product(range( int(self.dist_len/2)), repeat=2):
                 diff = utils.get_value_of_change_vertices(self.distances, solution, complementary_solution, remove_id, insert_id)
                 if diff < 0:
                     current = copy.deepcopy(solution)
@@ -85,7 +86,7 @@ class LocalSearch():
                     break
             #in
             better_in = False
-            for swap_a_id, swap_b_id in product(range(50), repeat=2):
+            for swap_a_id, swap_b_id in product(range( int(self.dist_len/2)), repeat=2):
                 if swap_b_id <= swap_a_id:
                     continue
 
@@ -116,12 +117,12 @@ class LocalSearch():
         solution, time1, better_out, better_in = self._init_params(iter)
         while better_in or better_out:
             current = copy.deepcopy(solution) # or None
-            complementary_solution = list(set(range(100)) - set(solution))
+            complementary_solution = list(set(range(self.dist_len)) - set(solution))
 
             # 1 - change
             better_out = False
             best = 0
-            for remove_id, insert_id in product(range(50), repeat=2):
+            for remove_id, insert_id in product(range( int(self.dist_len/2)), repeat=2):
                 diff = utils.get_value_of_change_vertices(self.distances, solution, complementary_solution, remove_id, insert_id)
                 if diff < best:
                     current = copy.deepcopy(solution)
@@ -137,7 +138,7 @@ class LocalSearch():
             better_in = False
             best = 0
             bswap = (0,0)
-            for swap_a_id, swap_b_id in product(range(50), repeat=2):
+            for swap_a_id, swap_b_id in product(range( int(self.dist_len/2)), repeat=2):
                 if swap_b_id <= swap_a_id:
                     continue
 
@@ -187,7 +188,7 @@ class LocalSearch():
 
 def main():
     
-    for isVertex in [True, False]:
+    for isVertex in [True]:
         # for isGreedy in [True, False]:
         isGreedy = False
         
