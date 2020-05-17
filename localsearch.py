@@ -26,10 +26,6 @@ class LocalSearch():
 
     def _init_params(self, iter):
         t1 = time.time()
-        # same random numbers to ease debug
-        # np.random.seed(iter)
-        # random.seed(iter)
-        # random solution
         solution = random.sample(list(range(self.dist_len)), int(self.dist_len/2))
         better_out = True
         better_in = True
@@ -188,7 +184,7 @@ class LocalSearch():
 
 def main():
     
-    for isVertex in [True]:
+    for isVertex in [False]:
         # for isGreedy in [True, False]:
         isGreedy = False
         
@@ -197,9 +193,12 @@ def main():
             coords, distances = greedy.load_instance_tsplib(instance_file)
 
             df = pd.DataFrame(columns=['isGreedy', 'isVertex','instance', 'cost', 'time'])
-            
+
             ls = LocalSearch(distances, greedy=isGreedy, vertex=isVertex)
-            ls.run(100)
+
+            for i in range(10):
+                ls.run(100)
+            
             for s, cost, time in ls.solutions:
                 df = df.append(
                     pd.DataFrame([[isGreedy, isVertex, instance, cost, time]], 

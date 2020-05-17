@@ -1,0 +1,43 @@
+ILS1
+           cost              
+            min   mean    max
+instance                     
+kroA200   15279  17071  18271
+              time                    
+               min      mean       max
+instance                              
+kroA200   240.0444  240.0628  240.1011
+ --- --- --- --- ---
+
+           cost              
+            min   mean    max
+instance                     
+kroB200   15867  17068  18062
+              time                    
+               min      mean       max
+instance                              
+kroB200   240.0407  240.0598  240.1157
+ --- --- --- --- ---
+
+
+
+ILS2
+           cost              
+            min   mean    max
+instance                     
+kroA200   14142  14814  15466
+             time                    
+              min      mean       max
+instance                             
+kroA200   240.018  240.0526  240.0765
+ --- --- --- --- ---
+
+           cost              
+            min   mean    max
+instance                     
+kroB200   14639  15147  15687
+             time                    
+              min      mean       max
+instance                             
+kroB200   240.003  240.0487  240.0996
+ --- --- --- --- ---

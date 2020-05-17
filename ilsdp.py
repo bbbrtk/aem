@@ -11,7 +11,7 @@ KROA = "kroA200"
 KROB = "kroB200"
 
 class ILSDP():
-    def __init__(self, distances, perts=24, vertex=False):
+    def __init__(self, distances, perts=20, vertex=False):
         self.distances = distances
         self.dist_len = len(distances)
         self.vertex = vertex # or edge
@@ -41,7 +41,7 @@ class ILSDP():
         results = {}
        
         count = 0
-        while time.time() - time1 <= 240:
+        while time.time() - time1 <= 200:
             count += 1
             solution = utils.dp(self.distances, self.dist_len, solution, self.mask)
 
