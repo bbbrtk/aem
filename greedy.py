@@ -149,7 +149,7 @@ def show_on_plot(coords, path, label="", save=False, savename="plot"):
         ax.annotate(txt, (c0[i], c1[i]))
     plt.title(label)
     if save: plt.savefig(savename)
-    plt.show()
+    # plt.show()
 
 
 def run_multiple_times(distances, repeat=10, regret=False, show_paths=False):

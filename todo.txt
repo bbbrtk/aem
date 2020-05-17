@@ -1,0 +1,6 @@
+1. skopiowac sprawko
+2. dodac opis od spr 
+3. dodac wnioski od spr 
+4. dodac czasy i wyniki - oszacowac jak moga wygladac
+5. zmienic kod dla nowych algorytmow (2 pliki)
+6. napisac pseudokod
