@@ -26,10 +26,6 @@ class ILS():
 
     def _init_params(self, iter):
         t1 = time.time()
-        # same random numbers to ease debug
-        # np.random.seed(iter)
-        # random.seed(iter)
-        # random solution
         solution = random.sample(list(range(self.dist_len)), int(self.dist_len/2))
         better_out = True
         better_in = True
@@ -144,9 +140,6 @@ def main():
         save_name = f'ils_{instance}'
 
         greedy.show_on_plot(coords, ls.best_solution, label=label, save=True, savename=save_name)
-
-        # print(df.head())
-        # print("min_cost: ", min(costs))
         df['cost'] = df['cost'].astype(float)
         df_cost = df.groupby(['instance']).agg({'cost' : ['min','mean','max']}).astype(int)
         print(df_cost)
